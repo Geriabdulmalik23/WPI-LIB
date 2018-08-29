@@ -9,6 +9,42 @@ define("MERCHANT_KEY", "39c9e05920f663956bc8c30eb5eeea1f0704ee98");
 define("PRIVATE_KEY1", "plasamall");
 define("PRIVATE_KEY2", "plasamall");
 
+
+
+
+if(isset($_GET["is_post"])){
+    $json = json_encode($_POST);
+
+    $Spi = new SpiDirectPayment();
+    // set your private key
+    $Spi->setPrivateKey(PRIVATE_KEY1, PRIVATE_KEY2);
+    $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
+    $message = array();
+    $SpiSender->doGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+    $token = "";
+
+    if (!$SpiSender->isERROR()) {
+        $token = $SpiSender->getData();
+        $token = $token->token;
+    }
+    $Spi->setToken($token);
+    // using encryption, 0 => Mcrypt, <> 0 => OpenSSL
+    $Spi->setEncryptMethod(0);
+    $URL_PAY = SCApiConstant::SPI_URL_DEVEL . SCApiConstant::PATH_API; 
+    // set encrypted message
+    $Spi->setMessageFromJson($json);
+
+    $message = $Spi->getPaymentMessage();
+
+    die($message["orderdata"]);
+}
+
+
+
+
+
+
+
 $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
 $message = array("group" => 1);
 $SpiSender->doGet(SCApiConstant::PATH_TOOLBAR, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
@@ -62,6 +98,9 @@ $message->set_item('spi_signature', $spi_signature);
 $message->set_item('get_link', "no");
 $message->set_item('payment_via', "SSN");
 
+
+$form_message = $message->getMessage();
+
 $Spi = new SpiDirectPayment();
 // set your private key
 $Spi->setPrivateKey(PRIVATE_KEY1, PRIVATE_KEY2);
@@ -84,6 +123,12 @@ $URL_PAY = SCApiConstant::SPI_URL_DEVEL . SCApiConstant::PATH_API;
 $Spi->setMessageFromJson($json);
 
 $message = $Spi->getPaymentMessage();
+
+
+
+
+
+
 
 ?>
 
@@ -146,12 +191,11 @@ $message = $Spi->getPaymentMessage();
 </style>
 </head>
 <body>
-    <form action="" method="POST" name="form_pay">
     <div class="container">
-        
+        <form action="?is_post=TRUE" method="POST" name="form_generate" id="form_generate">
             <div class="row">
                 <?php
-                    foreach ($message as $key => $value) {
+                    foreach ($form_message as $key => $value) {
                         if(is_array($value)){
                             foreach ($value as $key1 => $value1) {
                                 foreach ($value1 as $key2 => $value2) {
@@ -172,6 +216,47 @@ $message = $Spi->getPaymentMessage();
                                 <div class="form-group">
                                     <label for="<?= $key?>"><?= ucwords($key)?></label>
                                     <input type="text" class="form-control" name="<?= $key?>" value="<?= $value?>">
+                                  </div>
+                                  
+                            </div>
+                            
+                            <?php
+                        }
+
+                        
+                    }
+
+                    ?>
+            <button type="submit" class="btn btn-success bayar">GENERATE MESSAGE</button>    
+            </div>
+        </form>
+    </div>
+    <form action="" method="POST" name="form_pay">
+    <div class="container">
+        
+            <div class="row">
+                <?php
+                    foreach ($message as $key => $value) {
+                        if(is_array($value)){
+                            foreach ($value as $key1 => $value1) {
+                                foreach ($value1 as $key2 => $value2) {
+                                    ?>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="<?= $key?>"><?=$key?>[<?= $key1?>][<?= $key2?>]</label>
+                                            <input type="text" class="form-control" name="<?=$key?>[<?= $key1?>][<?= $key2?>]" value="<?= $value2?>">
+                                          </div>
+                                          
+                                    </div>
+                                    <?php
+                                }
+                            }
+                        } else {
+                            ?>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="<?= $key?>"><?= ucwords($key)?></label>
+                                    <input type="text" class="form-control" name="<?= $key?>" id="<?= $key?>" value="<?= $value?>">
                                   </div>
                                   
                             </div>
@@ -301,5 +386,23 @@ $message = $Spi->getPaymentMessage();
             this.parentElement.parentElement.classList.add("active");
         };
     }
+    (function($) {
+        $("#form_generate").submit(function(e) {
+            var form = $(this);
+            var url = form.attr('action');
+            $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: form.serialize(), // serializes the form's elements.
+                   success: function(data)
+                   {
+                       $("#orderdata").val(data);
+                   }
+                 });
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
+    })(jQuery)
+    
 </script>
 </html>

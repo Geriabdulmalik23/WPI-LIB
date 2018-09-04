@@ -117,7 +117,7 @@ if (!$SpiSender->isERROR()) {
 }
 $Spi->setToken($token);
 // using encryption, 0 => Mcrypt, <> 0 => OpenSSL
-$Spi->setEncryptMethod(0);
+$Spi->setEncryptMethod(2);
 $URL_PAY = SCApiConstant::SPI_URL_DEVEL . SCApiConstant::PATH_API; 
 // set encrypted message
 $Spi->setMessageFromJson($json);

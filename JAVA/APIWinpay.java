@@ -4,19 +4,20 @@
  * and open the template in the editor.
  */
 
-
 import id.winpay.api.WinpayProceed;
 import id.winpay.api.model.WPIMessage;
 import id.winpay.api.model.WPItem;
 import id.winpay.api.model.response.PaymentData;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import id.winpay.api.util.Config;
+import id.winpay.api.util.Config.PARAMS_PRODUCT_CODE;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
  *
- * @author Reza Ishaq Maulana <es.mgr@bm.co.id>
+ * @author Zainul Alim
  */
 public class APIWinpay {
 
@@ -50,16 +51,17 @@ public class APIWinpay {
         message.setSpi_item(items);
         message.setSpi_is_escrow("0");
 
-        WinpayProceed proc = new WinpayProceed(message, "indomaret");
-        proc.setEnvironment(WinpayProceed.ENV_DEVELOPMENT);
+        Config c = Config.getInstance();
+        c.initconfig(Config.DEVELOPMENT);
+        WinpayProceed proc = new WinpayProceed(message, PARAMS_PRODUCT_CODE.ALFAMART, c);
         proc.call();
         if (proc.getIsSuccess()) {
             PaymentData data = (PaymentData) proc.getResponse().getData();
             
-            System.out.println("Payment Code  " + data.getPayment_code());
-            System.out.println("URL Panduan  " + data.getSpi_status_url());
-            System.out.println("URL Payment  " + data.getUrl_payment());
-            System.out.println("URL Checkout  " + data.getUrl_checkout());
+            log.info("Payment Code  " + data.getPayment_code());
+            log.info("URL Panduan  " + data.getSpi_status_url());
+            log.info("URL Payment  " + data.getUrl_payment());
+            log.info("URL Checkout  " + data.getUrl_checkout());
         }
     }
 

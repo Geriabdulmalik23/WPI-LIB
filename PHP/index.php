@@ -110,15 +110,15 @@ $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
 $message = array();
 $SpiSender->doGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
 $token = "";
-
 if (!$SpiSender->isERROR()) {
     $token = $SpiSender->getData();
     $token = $token->token;
 }
 $Spi->setToken($token);
 // using encryption, 0 => Mcrypt, <> 0 => OpenSSL
-$Spi->setEncryptMethod(1);
-$URL_PAY = SCApiConstant::SPI_URL_DEVEL . SCApiConstant::PATH_API; 
+$encryption = 1;
+$Spi->setEncryptMethod($encryption);
+$URL_PAY = SCApiConstant::SPI_URL_DEVEL . ($encryption != 0 ? SCApiConstant::PATH_API2 : SCApiConstant::PATH_API); 
 // set encrypted message
 $Spi->setMessageFromJson($json);
 

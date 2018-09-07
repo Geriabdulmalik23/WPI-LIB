@@ -5,9 +5,9 @@ require_once "spi/SpiHelper.php";
 require_once "spi/SpiDirectPayment.php";
 
 
-define("MERCHANT_KEY", "39c9e05920f663956bc8c30eb5eeea1f0704ee98");
-define("PRIVATE_KEY1", "plasamall");
-define("PRIVATE_KEY2", "plasamall");
+define("MERCHANT_KEY", "BISMILLAH");
+define("PRIVATE_KEY1", "35ac86421452f8364c3cb8fc264f2d21");
+define("PRIVATE_KEY2", "d9850099aba2996792c8687dcea28f1f");
 
 
 
@@ -89,14 +89,14 @@ $message->set_item(1, $item2, 'spi_item');
 // total amount
 $message->set_item('spi_amount', 50000);
 
-// set 1 to skip every page(exclude pages that have mandatory input) in SPI
+// set 1 to skip every page(exclude pages that have mandatory input) in WPI
 $message->set_item('skip_spi_page', 0);
 
-// for SPI Redirect, spi_signature must be defined
+// for WPI Redirect, spi_signature must be defined
 $spi_signature = SpiHelper::generateSpiSignature(MERCHANT_KEY, $message->getMessage());
 $message->set_item('spi_signature', $spi_signature);
+// set no to get payment code for direct payment
 $message->set_item('get_link', "no");
-$message->set_item('payment_via', "SSN");
 
 
 $form_message = $message->getMessage();
@@ -117,7 +117,7 @@ if (!$SpiSender->isERROR()) {
 }
 $Spi->setToken($token);
 // using encryption, 0 => Mcrypt, <> 0 => OpenSSL
-$Spi->setEncryptMethod(2);
+$Spi->setEncryptMethod(1);
 $URL_PAY = SCApiConstant::SPI_URL_DEVEL . SCApiConstant::PATH_API; 
 // set encrypted message
 $Spi->setMessageFromJson($json);

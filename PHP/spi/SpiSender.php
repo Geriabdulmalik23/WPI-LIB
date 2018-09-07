@@ -128,7 +128,11 @@ class SpiSender {
                 'header' => "Content-Type: $content_type\r\n" .
                 ($basic_auth != "" ? 'Authorization: Basic ' . base64_encode($basic_auth) . "\r\n" : ""),
                 'content' => $content
-            )
+            ),
+            "ssl" => array(
+                "verify_peer" => false, // for production please set true
+                "verify_peer_name" => false, // for production please set true
+            ),
         );
         return stream_context_create($opts);
     }
@@ -136,8 +140,8 @@ class SpiSender {
 }
 
 class SCApiConstant {
-    const SPI_URL = "https://api.winpay.id";
-    const SPI_URL_DEVEL = "https://api-devel.winpay.id";
+    const SPI_URL = "https://secure-payment.winpay.id";
+    const SPI_URL_DEVEL = "https://sandbox-payment.winpay.id";
     const PATH_TOKEN = "/token";
     const PATH_API = "/api";
     const PATH_API2 = "/apiv2";

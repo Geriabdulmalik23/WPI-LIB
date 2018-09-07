@@ -122,8 +122,8 @@ class SpiSender {
             $content = http_build_query($content);
         }
 
-        $opts = array('http' =>
-            array(
+        $opts = array(
+            'http' => array(
                 'method' => $method,
                 'header' => "Content-Type: $content_type\r\n" .
                 ($basic_auth != "" ? 'Authorization: Basic ' . base64_encode($basic_auth) . "\r\n" : ""),

@@ -20,7 +20,11 @@ if(isset($_GET["is_post"])){
     $Spi->setPrivateKey(PRIVATE_KEY1, PRIVATE_KEY2);
     $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
     $message = array();
-    $SpiSender->doGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+
+    // for file_get_contents
+    // $SpiSender->doGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+    // for curl
+    $SpiSender->doCurlGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
     $token = "";
 
     if (!$SpiSender->isERROR()) {
@@ -47,7 +51,10 @@ if(isset($_GET["is_post"])){
 
 $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
 $message = array("group" => 1);
-$SpiSender->doGet(SCApiConstant::PATH_TOOLBAR, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+// for file_get_contents
+// $SpiSender->doGet(SCApiConstant::PATH_TOOLBAR, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+// for curl
+$SpiSender->doCurlGet(SCApiConstant::PATH_TOOLBAR, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
 
 $toolbar = array();
 if (!$SpiSender->isERROR()) {
@@ -108,7 +115,10 @@ $json = $message->getJson();
 // print_r($json);die();
 $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
 $message = array();
-$SpiSender->doGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+// for file_get_contents
+// $SpiSender->doGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
+// for curl
+$SpiSender->doCurlGet(SCApiConstant::PATH_TOKEN, $message, SCApiContentType::RAW, PRIVATE_KEY1 . ":" . PRIVATE_KEY2);
 $token = "";
 if (!$SpiSender->isERROR()) {
     $token = $SpiSender->getData();

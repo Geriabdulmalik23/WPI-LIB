@@ -117,6 +117,57 @@ class SpiSender {
         $this->parseJson($result);
     }
 
+    public function doCurlGet($path = "", $content = "", $content_type = SCApiContentType::RAW, $basic_auth = "") {
+        $this->PATH = $path;
+        $result = $this->curlRequest($this->URL . $path, "GET", $content, $basic_auth, $content_type);
+        $this->parseJson($result);
+    }
+
+    public function doCurlPost($path = "", $content = "", $content_type = SCApiContentType::RAW, $basic_auth = "") {
+        if (is_array($content) && $content_type == SCApiContentType::JSON) {
+            $content = json_encode($content);
+        }
+        $this->PATH = $path;
+        $result = $this->curlRequest($this->URL . $path, "POST", $content, $basic_auth, $content_type);
+        $this->parseJson($result);
+    }
+
+    private function curlRequest($url, $method = "GET", $message = "", $basic_auth = "", $content_type = SCApiContentType::RAW){
+
+        if($method == "GET"){
+            $message = http_build_query($message);
+            $url = $url . "?" . $message;
+        }
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+
+        // for security reason please set true
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+            "Content-Type: " . $content_type,
+            "Authorization: Basic " . base64_encode($basic_auth)
+        ));
+        
+        if($method == "POST"){
+            if (is_array($message) && $content_type == SCApiContentType::JSON) {
+                $message = json_encode($message);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $message);
+            } else {
+                curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($message));
+            }
+            
+        }
+
+        $response = curl_exec($curl);
+        return $response;
+    }
+
     private function createContext($method, $content = "", $basic_auth = "", $content_type = SCApiContentType::RAW) {
         if (is_array($content)) {
             $content = http_build_query($content);

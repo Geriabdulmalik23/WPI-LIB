@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author Reza Ishaq Maulana <es.mgr@bm.co.id>
+ * @author Zainul Alim <zainulalim@ymail.com>
  */
 public class APIWinpay {
 

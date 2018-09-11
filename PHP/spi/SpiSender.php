@@ -119,7 +119,7 @@ class SpiSender {
 
     public function doCurlGet($path = "", $content = "", $content_type = SCApiContentType::RAW, $basic_auth = "") {
         $this->PATH = $path;
-        $result = $this->curlRequest($this->URL . $path, "GET", $content, $basic_auth, $content_type);
+        $result = $this->curlRequest($this->URL . $path, "GET", $content, $content_type, $basic_auth);
         $this->parseJson($result);
     }
 
@@ -128,11 +128,11 @@ class SpiSender {
             $content = json_encode($content);
         }
         $this->PATH = $path;
-        $result = $this->curlRequest($this->URL . $path, "POST", $content, $basic_auth, $content_type);
+        $result = $this->curlRequest($this->URL . $path, "POST", $content, $content_type, $basic_auth);
         $this->parseJson($result);
     }
 
-    private function curlRequest($url, $method = "GET", $message = "", $basic_auth = "", $content_type = SCApiContentType::RAW){
+    private function curlRequest($url, $method = "GET", $message = "", $content_type = SCApiContentType::RAW, $basic_auth = ""){
 
         if($method == "GET"){
             $message = http_build_query($message);
@@ -145,14 +145,18 @@ class SpiSender {
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 
-        // for security reason please set true
+        // for security reason please set true in production
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-            "Content-Type: " . $content_type,
-            "Authorization: Basic " . base64_encode($basic_auth)
-        ));
+        $headers = array(
+            "Content-Type: " . $content_type
+        );
+
+        if ($basic_auth != "") {
+            $headers[] = "Authorization: Basic " . base64_encode($basic_auth);
+        }
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         
         if($method == "POST"){
             if (is_array($message) && $content_type == SCApiContentType::JSON) {

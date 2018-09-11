@@ -124,12 +124,14 @@ if (!$SpiSender->isERROR()) {
     $token = $SpiSender->getData();
     $token = $token->token;
 }
+
 $Spi->setToken($token);
 // using encryption, 0 => Mcrypt, <> 0 => OpenSSL
 $encryption = 1;
 $Spi->setEncryptMethod($encryption);
 $URL_PAY = SCApiConstant::SPI_URL_DEVEL . ($encryption != 0 ? SCApiConstant::PATH_API2 : SCApiConstant::PATH_API); 
 // set encrypted message
+// die($json);
 $Spi->setMessageFromJson($json);
 
 $message = $Spi->getPaymentMessage();

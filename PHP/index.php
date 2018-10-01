@@ -150,12 +150,23 @@ $message = $Spi->getPaymentMessage();
     <title>WPI Testing</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SpeedCash Online Payment Gateway Indonesia - Sistem pembayaran online untuk bisnis online, belanja online dan Rekber Rekening Bersama">
-    <meta name="keywords" content="sistem pembayaran,pembayaran online,bisnis online,belanja online,payment gateway indonesia">
-    <meta name="tag-name" content="pembayaran online,bisnis online,payment gateway indonesia"/>
-    <meta name="author" content="SpeedCash">
+    <meta name="description" content="Integrasikan Toko Online Anda dengan Payment Gateway Terbaik Indonesia dan Terima Pembayaran Lebih Mudah dari 20 Metode Pembayaran. ATM, Kartu Kredit, Serta Indomaret dan Alfamart. Daftar Sekarang!"/>
+    <link rel="canonical" href="https://winpay.id/"/>
+    <meta property="og:locale" content="id_ID"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Payment Gateway Indonesia: Terbaik dan Terpercaya - WinPay"/>
+    <meta property="og:description" content="Integrasikan Toko Online Anda dengan Payment Gateway Terbaik Indonesia dan Terima Pembayaran Lebih Mudah dari 20 Metode Pembayaran. ATM, Kartu Kredit, Serta Indomaret dan Alfamart. Daftar Sekarang!"/>
+    <meta property="og:url" content="https://winpay.id/"/>
+    <meta property="og:site_name" content="WinPay"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:description" content="Integrasikan Toko Online Anda dengan Payment Gateway Terbaik Indonesia dan Terima Pembayaran Lebih Mudah dari 20 Metode Pembayaran. ATM, Kartu Kredit, Serta Indomaret dan Alfamart. Daftar Sekarang!"/>
+    <meta name="twitter:title" content="Payment Gateway Indonesia: Terbaik dan Terpercaya - WinPay"/>
+    <meta name="twitter:image" content="https://sitedevel.winpay.id/wp-content/uploads/2018/09/Contoh-integrasi-payment-gateway-Indonesia-WinPay-di-Toko-Online-768x768.png"/>
+    <script type='application/ld+json'>{"@context":"https:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/www.winpay.id\/","name":"WinPay","potentialAction":{"@type":"SearchAction","target":"https:\/\/www.winpay.id\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+    <script type='application/ld+json'>{"@context":"https:\/\/schema.org","@type":"Organization","url":"https:\/\/www.winpay.id\/","sameAs":[],"@id":"https:\/\/www.winpay.id\/#organization","name":"WinPay","logo":"https:\/\/sitedevel.winpay.id\/wp-content\/uploads\/2018\/04\/winpay-logo.png"}</script>
+    <meta name="google-site-verification" content="5yDfAVe6qP575h8O_WH2A4KKrVL8PNOrOwRrI1UoiT8"/>
 
-    <link rel="shortcut icon" href="https://www.speedcash.co.id/favicon.png">
+    <link rel="shortcut icon" href="https://secure-payment.winpay.id/favicon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

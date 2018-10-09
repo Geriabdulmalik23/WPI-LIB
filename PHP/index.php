@@ -96,9 +96,6 @@ $message->set_item(1, $item2, 'spi_item');
 // total amount
 $message->set_item('spi_amount', 50000);
 
-// set 1 to skip every page(exclude pages that have mandatory input) in WPI
-$message->set_item('skip_spi_page', 0);
-
 // for WPI Redirect, spi_signature must be defined
 $spi_signature = SpiHelper::generateSpiSignature(MERCHANT_KEY, $message->getMessage());
 $message->set_item('spi_signature', $spi_signature);
@@ -135,12 +132,6 @@ $URL_PAY = SCApiConstant::SPI_URL_DEVEL . ($encryption != 0 ? SCApiConstant::PAT
 $Spi->setMessageFromJson($json);
 
 $message = $Spi->getPaymentMessage();
-
-
-
-
-
-
 
 ?>
 

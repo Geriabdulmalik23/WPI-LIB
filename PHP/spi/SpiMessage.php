@@ -19,7 +19,12 @@ class SpiMessage {
         "spi_signature" => "",
         "spi_token" => "",
         "spi_merchant_transaction_reff" => "",
+        "spi_merchant_discount" => "",
         "spi_item_expedition" => "",
+        "spi_expedition_name" => "",
+        "spi_expedition_type" => "",
+        "spi_expedition_code" => "",
+        "spi_expedition_price" => "",
         "spi_billingPhone" => "",
         "spi_billingEmail" => "",
         "spi_billingName" => "",
@@ -64,6 +69,12 @@ class SpiMessage {
     var $_spi_token = "spi_token";
     var $_spi_merchant_transaction_reff = "spi_merchant_transaction_reff";
     var $_spi_item_expedition = "spi_item_expedition";
+    var $_spi_merchant_discount = "spi_merchant_discount";
+    var $_spi_expedition_name = "spi_expedition_name";
+    var $_spi_expedition_type = "spi_expedition_type";
+    var $_spi_expedition_code = "spi_expedition_code";
+    var $_spi_expedition_price = "spi_expedition_price";
+    
     var $_spi_billingPhone = "spi_billingPhone";
     var $_spi_billingEmail = "spi_billingEmail";
     var $_spi_billingCountry = "spi_billingCountry";

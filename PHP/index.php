@@ -64,7 +64,7 @@ if (!$SpiSender->isERROR()) {
 
 // generate message
 $message = new SpiMessage();
-$message->set_item('cms', 'API');
+$message->set_item('cms', 'WINPAY API');
 $message->set_item('url_listener', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/spi/url_listener.php');
 $message->set_item('spi_callback', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 $message->set_item('spi_currency', 'IDR');

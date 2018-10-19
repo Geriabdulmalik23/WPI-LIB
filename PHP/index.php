@@ -10,7 +10,8 @@ define("PRIVATE_KEY1", "35ac86421452f8364c3cb8fc264f2d21");
 define("PRIVATE_KEY2", "d9850099aba2996792c8687dcea28f1f");
 
 
-
+// Set Time Zone
+date_default_timezone_set("Asia/Jakarta");
 
 if(isset($_GET["is_post"])){
     $json = json_encode($_POST);

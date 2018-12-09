@@ -5,6 +5,7 @@ require_once "spi/SpiHelper.php";
 require_once "spi/SpiDirectPayment.php";
 
 
+// use this only for development
 define("MERCHANT_KEY", "b8697bc90f98e5f72f64dddd205e3f8a");
 define("PRIVATE_KEY1", "35ac86421452f8364c3cb8fc264f2d21");
 define("PRIVATE_KEY2", "d9850099aba2996792c8687dcea28f1f");

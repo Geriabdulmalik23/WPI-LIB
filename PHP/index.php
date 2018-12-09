@@ -46,10 +46,6 @@ if(isset($_GET["is_post"])){
 
 
 
-
-
-
-
 $SpiSender = new SpiSender(SCApiConstant::SPI_URL_DEVEL);
 $message = array("group" => 1);
 // for file_get_contents
@@ -74,7 +70,7 @@ $message->set_item('spi_item_expedition', 0);
 $message->set_item('spi_token', PRIVATE_KEY1.PRIVATE_KEY2);
 $message->set_item('spi_is_escrow', 0);
 $message->set_item('spi_merchant_transaction_reff', uniqid());
-$message->set_item('spi_billingPhone', '081234567777');
+$message->set_item('spi_billingPhone', '085649605912');
 $message->set_item('spi_billingEmail', 'zainulalim@ymail.com');
 $message->set_item('spi_billingName', 'Zainul Alim');
 $message->set_item('spi_paymentDate', date('YmdHis', strtotime(date('YmdHis') . ' + 1 hours')));

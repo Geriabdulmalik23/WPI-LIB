@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="ASYNC_DAILYROLL_FILE" class="org.apache.log4j.appender.ActiveAsynchronousAppender">
+        <param name="BufferSize" value="100" />
+        <param name="FailToSync" value="false" />
+        <param name="LocationInfo" value="true" />
+        <appender-ref ref="DAILYROLL_FILE" />
+    </appender>
+
+    <appender name="DAILYROLL_FILE" class="org.apache.log4j.appender.TimeAndSizeRollingAppender">
+        <param name="File" value="logs/com.lib.winpay.log"/>
+        <param name="DatePattern" value=".yyyy-MM-dd"/>
+        <param name="MaxFileSize" value="20MB"/>
+        <param name="MaxRollFileCount" value="10"/>
+        <param name="ScavengeInterval" value="30000"/>
+        <param name="DateRollEnforced" value="true"/>
+        <param name="FileRollEventMessage" value="First line of each file following a roll"/>
+        <param name="BufferedIO" value="false"/>
+        <param name="CompressionAlgorithm" value="ZIP"/>
+        <param name="CompressionMinQueueSize" value="5"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %-23d{ISO8601} [%t] %x: %c{1} - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC_STDOUT" class="org.apache.log4j.appender.ActiveAsynchronousAppender">
+        <param name="BufferSize" value="10" />
+        <param name="FailToSync" value="false" />
+        <param name="LocationInfo" value="true" />
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d{ISO8601} %-5p (%C;%L) %m%n"
+            />
+        </layout>
+    </appender>
+
+    <root>
+        <level value="info"/>
+        <appender-ref ref="ASYNC_STDOUT"/>
+        <appender-ref ref="ASYNC_DAILYROLL_FILE"/>
+    </root>
+
+</log4j:configuration>
